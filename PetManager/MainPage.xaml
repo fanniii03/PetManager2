@@ -22,11 +22,9 @@
         </DataTemplate>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,*,Auto"  WidthRequest="300" RowSpacing="10"
+    <Grid RowDefinitions="Auto,*"  WidthRequest="300" RowSpacing="10"
           x:DataType="local:MainPageViewModel">
-        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center"
-                               x:Name="buttonArea"
-                               IsEnabled="{Binding IsListingOn}">
+        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
             <Button Text="New" Command="{Binding NewPetCommand}"/>
             <Button Text="Edit" Command="{Binding EditSelectedPetCommand}" />
             <Button Text="Delete" Command="{Binding DeletePetCommand}"/>
@@ -39,10 +37,7 @@
                             SelectionMode="Single"
                             BackgroundColor="LightYellow" 
                             x:Name="petsCollectionView"
-                            ItemTemplate="{StaticResource petsItem}"
-                            IsEnabled="{Binding IsListingOn}"
-                            InputTransparent="{Binding IsEditingOn}">
-
+                            ItemTemplate="{StaticResource petsItem}">
             </CollectionView>
         </Border>
     </Grid>

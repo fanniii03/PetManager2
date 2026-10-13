@@ -27,29 +27,22 @@ namespace PetManager
             }
         }
 
-        public bool CanEditOrDelete => SelectedPet != null;
+        public bool IsSelected => SelectedPet != null;
 
-        [ObservableProperty]
-        Pet editedPet;
-
-        private bool isEditingOn;
-        public bool IsEditingOn
+        public Pet EditedPet
         {
-            get => isEditingOn;
             set
             {
-                if (isEditingOn != value)
+                if (value != null)
                 {
-                    isEditingOn = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged(nameof(IsListingOn));
+                    if (SelectedPet != null)
+                    {
+                        Pets.Remove(SelectedPet);
+                        SelectedPet = null;
+                    }
+                    Pets.Add(value);
                 }
             }
-        }
-
-        public bool IsListingOn
-        {
-            get => !isEditingOn;
         }
 
         public MainPageViewModel()
@@ -65,20 +58,19 @@ namespace PetManager
             if (SelectedPet != null)
             {
                 var param = new ShellNavigationQueryParameters
-            {
-                { "Potato", SelectedPet }
-            };
+                {
+                    { "Potato", SelectedPet }
+                };
                 await Shell.Current.GoToAsync("petdetails", param);
             }
         }
 
-        [RelayCommand(CanExecute = nameof(CanEditOrDelete))]
-        public void EditSelectedPet()
+        [RelayCommand(CanExecute = nameof(IsSelected))]
+        public async Task EditSelectedPetAsync()
         {
             if (SelectedPet != null)
             {
-                EditedPet = SelectedPet.GetCopy();
-                IsEditingOn = true;
+                
             }
             else
             {
@@ -87,27 +79,7 @@ namespace PetManager
             }
         }
 
-        [RelayCommand]
-        public void SavePet()
-        {
-            if (SelectedPet != null)
-            {
-                Pets.Remove(SelectedPet);
-            }
-            Pets.Add(EditedPet);
-            EditedPet = null;
-            IsEditingOn = false;
-        }
-
-        [RelayCommand]
-        public void CancelEdit()
-        {
-            EditedPet = null;
-            IsEditingOn = false;
-        }
-
-
-        [RelayCommand(CanExecute = nameof(CanEditOrDelete))]
+        [RelayCommand(CanExecute = nameof(IsSelected))]
         public void DeletePet()
         {
             if (SelectedPet != null)
@@ -123,15 +95,10 @@ namespace PetManager
         }
 
         [RelayCommand]
-        public void NewPet()
+        public async Task NewPetAsync()
         {
             SelectedPet = null;
-            EditedPet = new Pet()
-            {
-                Name = "New Name",
-                BirthDate = DateTime.Today
-            };
-            IsEditingOn = true;
+
         }
     }
 }
