@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace PetManager
 {
-    public partial class EditPetPageViewModel :  ObservableObject
+    [QueryProperty(nameof(OriginalPet), "Pet")]
+    public partial class EditPetPageViewModel : ObservableObject
     {
         [ObservableProperty]
         Pet originalPet;
@@ -24,13 +25,17 @@ namespace PetManager
         [RelayCommand]
         public async Task SavePet()
         {
-            
+            var param = new ShellNavigationQueryParameters
+            {
+                { "EditedPet", EditedPet }
+            };
+            await Shell.Current.GoToAsync("..", param);
         }
 
         [RelayCommand]
         public async Task CancelEdit()
         {
-
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

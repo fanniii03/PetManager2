@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace PetManager
 {
+    [QueryProperty(nameof(EditedPet), "EditedPet")]
     public partial class MainPageViewModel : ObservableObject
     {
         public ObservableCollection<Pet> Pets { get; set; }
@@ -70,7 +71,11 @@ namespace PetManager
         {
             if (SelectedPet != null)
             {
-                
+                var param = new ShellNavigationQueryParameters
+                {
+                    { "Pet", SelectedPet }
+                };
+                await Shell.Current.GoToAsync("editpet", param);
             }
             else
             {
@@ -98,7 +103,11 @@ namespace PetManager
         public async Task NewPetAsync()
         {
             SelectedPet = null;
-
+            var param = new ShellNavigationQueryParameters
+            {
+                { "Pet", new Pet(){ BirthDate = DateTime.Today } }
+            };
+            await Shell.Current.GoToAsync("editpet", param);
         }
     }
 }
