@@ -6,6 +6,7 @@
         {
             InitializeComponent();
             Routing.RegisterRoute("petdetails", typeof(PetDetailsPage));
+            Routing.RegisterRoute("editpet", typeof(EditPetPage));
         }
     }
 }
