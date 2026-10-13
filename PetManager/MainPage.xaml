@@ -45,21 +45,6 @@
 
             </CollectionView>
         </Border>
-        <VerticalStackLayout Grid.Row="2"
-                         x:Name="editArea"
-                         IsEnabled="{Binding IsEditingOn}">
-            <Label Text="Name" FontSize="Medium"/>
-            <Entry Text="{Binding EditedPet.Name}"/>
-            <Label Text="Species" FontSize="Medium"/>
-            <Entry Text="{Binding EditedPet.Species}"/>
-            <Label Text="Date of birth" FontSize="Medium"/>
-            <DatePicker Date="{Binding EditedPet.BirthDate}"/>
-            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Button Text="Save" Command="{Binding SavePetCommand}"/>
-                <Button Text="Cancel" Command="{Binding CancelEditCommand}"/>
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
-
     </Grid>
 
 </ContentPage>

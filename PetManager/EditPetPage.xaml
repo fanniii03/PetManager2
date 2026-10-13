@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PetManager.EditPetPage"
+             Title="EditPetPage">
+    <VerticalStackLayout>
+        <Label Text="Name" FontSize="Medium"/>
+        <Entry Text="{Binding EditedPet.Name}"/>
+        <Label Text="Species" FontSize="Medium"/>
+        <Entry Text="{Binding EditedPet.Species}"/>
+        <Label Text="Date of birth" FontSize="Medium"/>
+        <DatePicker Date="{Binding EditedPet.BirthDate}"/>
+        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+            <Button Text="Save" Command="{Binding SavePetCommand}"/>
+            <Button Text="Cancel" Command="{Binding CancelEditCommand}"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

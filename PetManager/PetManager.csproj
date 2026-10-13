@@ -66,6 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="EditPetPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="HelpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
