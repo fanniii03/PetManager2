@@ -30,6 +30,7 @@
             <Button Text="New" Command="{Binding NewPetCommand}"/>
             <Button Text="Edit" Command="{Binding EditSelectedPetCommand}" />
             <Button Text="Delete" Command="{Binding DeletePetCommand}"/>
+            <Button Text="Details" Command="{Binding ShowPetDetailsCommand}"/>
         </HorizontalStackLayout>
         <Border StrokeThickness="5" Stroke="Orange" StrokeShape="RoundRectangle 10"
             Grid.Row="1">

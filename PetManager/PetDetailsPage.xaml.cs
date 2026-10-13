@@ -1,5 +1,6 @@
 namespace PetManager;
 
+[QueryProperty(nameof(Pet), "Potato")]
 public partial class PetDetailsPage : ContentPage
 {
     Pet pet;

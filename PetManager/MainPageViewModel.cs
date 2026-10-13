@@ -59,6 +59,19 @@ namespace PetManager
             Pets.Add(new Pet() { Name = "Zoé", Species = "Francia bulldog palota pincsi", BirthDate = new DateTime(2014, 12, 14) });
         }
 
+        [RelayCommand]
+        public async Task ShowPetDetailsAsync()
+        {
+            if (SelectedPet != null)
+            {
+                var param = new ShellNavigationQueryParameters
+            {
+                { "Potato", SelectedPet }
+            };
+                await Shell.Current.GoToAsync("petdetails", param);
+            }
+        }
+
         [RelayCommand(CanExecute = nameof(CanEditOrDelete))]
         public void EditSelectedPet()
         {
