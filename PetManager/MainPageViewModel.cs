@@ -55,6 +55,20 @@ namespace PetManager
             }
         }
 
+        public bool IsFullViewEnabled
+        {
+            get
+            {
+                return Preferences.Default.Get("fullview", true);
+            }
+            set
+            {
+                Preferences.Default.Set("fullview", value);
+                OnPropertyChanged();
+            }
+
+        }
+
         public MainPageViewModel(IPetDatabase database)
         {
             this.database = database;

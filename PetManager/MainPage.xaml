@@ -13,17 +13,21 @@
     Stroke="Brown" StrokeThickness="2" StrokeShape="RoundRectangle 10">
                 <VerticalStackLayout>
                     <Label FontSize="Medium" FontAttributes="Bold" Text="{Binding Name}"/>
-                    <Label FontSize="Small" Text="{Binding Species}"/>
+                    <Label FontSize="Small" Text="{Binding Species}"
+                           IsVisible="{Binding
+                        BindingContext.IsFullViewEnabled,Source={RelativeSource
+                        AncestorType={x:Type ContentPage}}}"/>
                     <Label FontSize="Small"
                            Text="{Binding BirthDate, 
                         Converter={StaticResource AgeConverter},
-                        StringFormat='{0} year(s) old'}" />
+                         StringFormat='{0} year(s) old'}"
+                           IsVisible="{Binding BindingContext.IsFullViewEnabled,Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
                 </VerticalStackLayout>
             </Border>
         </DataTemplate>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,*"  WidthRequest="300" RowSpacing="10"
+    <Grid RowDefinitions="Auto,Auto,*"  WidthRequest="300" RowSpacing="10"
           x:DataType="local:MainPageViewModel">
         <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
             <Button Text="New" Command="{Binding NewPetCommand}"/>
@@ -31,8 +35,14 @@
             <Button Text="Delete" Command="{Binding DeletePetCommand}"/>
             <Button Text="Details" Command="{Binding ShowPetDetailsCommand}"/>
         </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10" Grid.Row="1">
+            <Label Text="Detailed View" VerticalOptions="Center"/>
+            <Switch IsToggled="{Binding IsFullViewEnabled}"/>
+        </HorizontalStackLayout>
+        
         <Border StrokeThickness="5" Stroke="Orange" StrokeShape="RoundRectangle 10"
-            Grid.Row="1">
+            Grid.Row="2">
             <CollectionView ItemsSource="{Binding Pets}" 
                             SelectedItem="{Binding SelectedPet}"
                             SelectionMode="Single"
