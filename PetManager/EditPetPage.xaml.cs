@@ -4,10 +4,10 @@ public partial class EditPetPage : ContentPage
 {
     EditPetPageViewModel vm;
 
-    public EditPetPage()
+    public EditPetPage(EditPetPageViewModel vm)
 	{
 		InitializeComponent();
-        this.vm = new EditPetPageViewModel();
+        this.vm = vm;
         BindingContext = vm;
     }
 
