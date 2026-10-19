@@ -6,11 +6,11 @@ namespace PetManager
     {
         MainPageViewModel vm;
 
-        public MainPage()
+        public MainPage(MainPageViewModel vm)
         {
             InitializeComponent();
 
-            vm = new MainPageViewModel();
+            this.vm = vm;
             BindingContext = vm;
 
             WeakReferenceMessenger.Default
