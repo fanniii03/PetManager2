@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,11 @@ namespace PetManager
 {
     public partial class Pet : ObservableObject
     {
+        [ObservableProperty]
+        [property:PrimaryKey]
+        [property:AutoIncrement]
+        int id;
+
         [ObservableProperty]
         string name;
 
