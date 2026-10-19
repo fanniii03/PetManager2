@@ -18,7 +18,7 @@ namespace PetManager
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<EditPetPageViewModel>();
             builder.Services.AddSingleton<EditPetPage>();
-            builder.Services.AddSingleton<IPetDatabase, JsonPetDatabase>();
+            builder.Services.AddSingleton<IPetDatabase, SQLitePetDatabase>();
 
 #if DEBUG
             builder.Logging.AddDebug();
