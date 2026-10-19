@@ -13,6 +13,8 @@ namespace PetManager
     [QueryProperty(nameof(EditedPet), "EditedPet")]
     public partial class MainPageViewModel : ObservableObject
     {
+        private IPetDatabase database;
+
         public ObservableCollection<Pet> Pets { get; set; }
 
         private Pet selectedPet;
@@ -30,27 +32,42 @@ namespace PetManager
 
         public bool IsSelected => SelectedPet != null;
 
-        public Pet EditedPet
+        [ObservableProperty]
+        Pet editedPet;
+
+        //azért kell ez, mert async nem hívható setterből
+        //az [ObservableProperty] generálja az alapját, amúgy ilyen metódus nem lenne
+        async partial void OnEditedPetChanged(Pet value)
         {
-            set
+            if (value != null)
             {
-                if (value != null)
+                if (SelectedPet != null)
                 {
-                    if (SelectedPet != null)
-                    {
-                        Pets.Remove(SelectedPet);
-                        SelectedPet = null;
-                    }
-                    Pets.Add(value);
+                    Pets.Remove(SelectedPet);
+                    SelectedPet = null;
+                    await database.UpdatePetAsync(value);
                 }
+                else
+                {
+                    await database.CreatePetAsync(value);
+                }
+                Pets.Add(value);
             }
         }
 
-        public MainPageViewModel()
+        public MainPageViewModel(IPetDatabase database)
         {
+            this.database = database;
             Pets = new ObservableCollection<Pet>();
-            Pets.Add(new Pet() { Name = "Samu", Species = "Cat", BirthDate = new DateTime(2021, 9, 28) });
-            Pets.Add(new Pet() { Name = "Zoé", Species = "Francia bulldog palota pincsi", BirthDate = new DateTime(2014, 12, 14) });
+        }
+
+        public async Task InitializeAsync()
+        {
+            // Megjegyzés: A Loaded nem csak a MainPage legelső betöltődésekor sül el, hanem akkor is, amikor Flyout menüből navigálunk rá, ezért kell a Clear().
+            var petList = await database.GetPetsAsync();
+            Pets.Clear();
+            petList.ForEach(p => Pets.Add(p));
+            int x = Pets.Count;
         }
 
         [RelayCommand]
@@ -89,6 +106,7 @@ namespace PetManager
         {
             if (SelectedPet != null)
             {
+                database.DeletePetAsync(SelectedPet);
                 Pets.Remove(SelectedPet);
                 SelectedPet = null;
             }
