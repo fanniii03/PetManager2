@@ -19,5 +19,10 @@ namespace PetManager
                     await DisplayAlert("Warning", message, "OK");
                 });
         }
+
+        private async void MainPage_OnLoaded(object? sender, EventArgs e)
+        {
+            await vm.InitializeAsync();
+        }
     }
 }

@@ -14,6 +14,11 @@ namespace PetManager
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<EditPetPageViewModel>();
+            builder.Services.AddSingleton<EditPetPage>();
+            builder.Services.AddSingleton<IPetDatabase, SQLitePetDatabase>();
 
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
